@@ -1,0 +1,1767 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Letter For You</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cormorant+Garamond:ital,wght@0,400;1,400;1,600&family=Great+Vibes&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #2c1810 0%, #4a2c1f 50%, #2c1810 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            font-family: 'Cormorant Garamond', serif;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            position: relative;
+        }
+
+        /* Floating flowers */
+        .flower-decoration {
+            position: absolute;
+            opacity: 0.6;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .flower-1 { top: -50px; left: -80px; animation-delay: 0s; }
+        .flower-2 { top: -30px; right: -60px; animation-delay: 1.5s; }
+        .flower-3 { bottom: -40px; left: -70px; animation-delay: 3s; }
+        .flower-4 { bottom: -50px; right: -50px; animation-delay: 4.5s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        .title {
+            font-family: 'Cinzel Decorative', cursive;
+            font-size: 4rem;
+            text-align: center;
+            color: #d4af37;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            margin-bottom: 40px;
+            letter-spacing: 8px;
+            animation: titleGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 20px rgba(212,175,55,0.3); }
+            50% { text-shadow: 2px 2px 4px rgba(0,0,0,0.5), 0 0 30px rgba(212,175,55,0.5); }
+        }
+
+        .letter-container {
+            background: linear-gradient(145deg, #f4e8d8 0%, #e8d5c0 100%);
+            border: 3px solid #8b6f47;
+            border-radius: 15px;
+            padding: 60px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.4), inset 0 0 100px rgba(139,111,71,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .letter-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 2px,
+                    rgba(139,111,71,0.03) 2px,
+                    rgba(139,111,71,0.03) 4px
+                );
+            pointer-events: none;
+        }
+
+        .letter-header {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.8rem;
+            color: #5c4033;
+            text-align: center;
+            margin-bottom: 30px;
+            animation: unfold 1.5s ease-out;
+        }
+
+        @keyframes unfold {
+            0% {
+                transform: scaleY(0);
+                opacity: 0;
+                transform-origin: top;
+            }
+            100% {
+                transform: scaleY(1);
+                opacity: 1;
+            }
+        }
+
+        .letter-content {
+            font-size: 1.3rem;
+            line-height: 2;
+            color: #3d2817;
+            text-align: justify;
+            position: relative;
+            z-index: 1;
+        }
+
+        .letter-content p {
+            margin-bottom: 25px;
+            animation: unfold 1.5s ease-out;
+            animation-fill-mode: both;
+        }
+
+        .letter-content p:nth-child(1) { animation-delay: 0.3s; }
+        .letter-content p:nth-child(2) { animation-delay: 0.6s; }
+
+        .editable-letter {
+            width: 100%;
+            min-height: 120px;
+            padding: 15px;
+            border: 2px solid transparent;
+            border-radius: 8px;
+            background: transparent;
+            font-size: 1.3rem;
+            line-height: 2;
+            color: #3d2817;
+            font-family: 'Cormorant Garamond', serif;
+            resize: vertical;
+            margin-bottom: 25px;
+            transition: all 0.3s;
+        }
+
+        .editable-letter:focus {
+            outline: none;
+            border-color: #d4af37;
+            background: rgba(212,175,55,0.05);
+        }
+
+        .editable-letter::placeholder {
+            color: #8b6f47;
+            opacity: 0.6;
+            font-style: italic;
+        }
+
+        .music-source-toggle {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 15px;
+            justify-content: center;
+        }
+
+        .source-btn {
+            background: rgba(139,111,71,0.2);
+            color: #5c4033;
+            border: 2px solid #8b6f47;
+            padding: 10px 25px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-family: 'Cormorant Garamond', serif;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+
+        .source-btn:hover {
+            background: rgba(139,111,71,0.3);
+        }
+
+        .source-btn.active {
+            background: linear-gradient(145deg, #8b6f47, #6b5537);
+            color: #f4e8d8;
+            border-color: #8b6f47;
+        }
+
+        .file-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #8b6f47;
+            border-radius: 8px;
+            background: #f4e8d8;
+            font-size: 1rem;
+            color: #3d2817;
+            font-family: 'Cormorant Garamond', serif;
+            cursor: pointer;
+        }
+
+        .file-input::-webkit-file-upload-button {
+            background: linear-gradient(145deg, #8b6f47, #6b5537);
+            color: #f4e8d8;
+            border: none;
+            padding: 8px 20px;
+            border-radius: 6px;
+            font-family: 'Cinzel Decorative', cursive;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+
+        .file-name {
+            margin-top: 10px;
+            color: #5c4033;
+            font-style: italic;
+            text-align: center;
+        }
+
+        .recipient-letter-text {
+            font-size: 1.3rem;
+            line-height: 2;
+            color: #3d2817;
+            text-align: justify;
+            margin-bottom: 25px;
+            white-space: pre-wrap;
+        }
+
+        /* Music Player */
+        .music-player {
+            background: rgba(92, 64, 51, 0.1);
+            border: 2px solid #8b6f47;
+            border-radius: 12px;
+            padding: 25px;
+            margin: 35px 0;
+            animation: unfold 1.5s ease-out;
+            animation-delay: 0.9s;
+            animation-fill-mode: both;
+        }
+
+        .music-header {
+            font-family: 'Cinzel Decorative', cursive;
+            font-size: 1.4rem;
+            color: #5c4033;
+            text-align: center;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .music-controls {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .time-input-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .time-input-group label {
+            font-size: 1.1rem;
+            color: #5c4033;
+            font-weight: 600;
+        }
+
+        .time-input-group input {
+            width: 80px;
+            padding: 8px;
+            border: 2px solid #8b6f47;
+            border-radius: 6px;
+            background: #f4e8d8;
+            font-size: 1rem;
+            text-align: center;
+            color: #3d2817;
+        }
+
+        .time-input-group span {
+            color: #5c4033;
+            font-weight: bold;
+        }
+
+        .youtube-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #8b6f47;
+            border-radius: 8px;
+            background: #f4e8d8;
+            font-size: 1rem;
+            color: #3d2817;
+            font-family: 'Cormorant Garamond', serif;
+        }
+
+        .play-button {
+            background: linear-gradient(145deg, #8b6f47, #6b5537);
+            color: #f4e8d8;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-family: 'Cinzel Decorative', cursive;
+            cursor: pointer;
+            transition: all 0.3s;
+            letter-spacing: 2px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        .play-button:hover {
+            background: linear-gradient(145deg, #6b5537, #5c4033);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        }
+
+        .player-container {
+            margin-top: 20px;
+            border-radius: 8px;
+            overflow: hidden;
+            display: none;
+        }
+
+        .letter-content p:last-child {
+            animation-delay: 1.2s;
+        }
+
+        .signature {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2.5rem;
+            color: #5c4033;
+            text-align: right;
+            margin-top: 40px;
+            animation: unfold 1.5s ease-out;
+            animation-delay: 1.5s;
+            animation-fill-mode: both;
+        }
+
+        /* Flower Selection Styles */
+        .flower-selection {
+            margin-top: 50px;
+            padding-top: 40px;
+            border-top: 2px solid #8b6f47;
+            animation: unfold 1.5s ease-out;
+            animation-delay: 1.8s;
+            animation-fill-mode: both;
+        }
+
+        .flower-selection-header {
+            font-family: 'Cinzel Decorative', cursive;
+            font-size: 1.8rem;
+            color: #5c4033;
+            text-align: center;
+            margin-bottom: 30px;
+            letter-spacing: 3px;
+        }
+
+        .flower-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+            max-height: 400px;
+            overflow-y: auto;
+            padding: 20px;
+            background: rgba(139,111,71,0.05);
+            border-radius: 10px;
+        }
+
+        .flower-grid::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .flower-grid::-webkit-scrollbar-track {
+            background: rgba(139,111,71,0.1);
+            border-radius: 10px;
+        }
+
+        .flower-grid::-webkit-scrollbar-thumb {
+            background: #8b6f47;
+            border-radius: 10px;
+        }
+
+        .flower-option {
+            cursor: pointer;
+            transition: all 0.3s;
+            padding: 10px;
+            border-radius: 8px;
+            border: 2px solid transparent;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .flower-option:hover {
+            transform: scale(1.1);
+            background: rgba(212,175,55,0.1);
+            border-color: #d4af37;
+        }
+
+        .flower-option.selected {
+            background: rgba(212,175,55,0.2);
+            border-color: #d4af37;
+            box-shadow: 0 0 15px rgba(212,175,55,0.4);
+        }
+
+        .flower-option svg {
+            width: 60px;
+            height: 60px;
+            display: block;
+            margin: 0 auto;
+        }
+
+        .flower-name {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 0.75rem;
+            color: #5c4033;
+            text-align: center;
+            font-style: italic;
+        }
+
+        .selected-flower-display {
+            text-align: center;
+            min-height: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            background: rgba(139,111,71,0.05);
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        .selected-flower-display svg {
+            width: 100px;
+            height: 100px;
+        }
+
+        .selection-text {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            color: #5c4033;
+            font-style: italic;
+        }
+
+        .send-button {
+            background: linear-gradient(145deg, #d4738f, #c45a7a);
+            color: #fff;
+            border: none;
+            padding: 15px 50px;
+            border-radius: 8px;
+            font-size: 1.3rem;
+            font-family: 'Cinzel Decorative', cursive;
+            cursor: pointer;
+            transition: all 0.3s;
+            letter-spacing: 2px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            display: block;
+            margin: 20px auto;
+            width: fit-content;
+        }
+
+        .send-button:hover {
+            background: linear-gradient(145deg, #c45a7a, #b44a6a);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        }
+
+        .send-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .share-section {
+            margin-top: 30px;
+            padding: 20px;
+            background: rgba(212,175,55,0.1);
+            border-radius: 10px;
+            text-align: center;
+            display: none;
+        }
+
+        .share-link-input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #8b6f47;
+            border-radius: 8px;
+            background: #f4e8d8;
+            font-size: 1rem;
+            color: #3d2817;
+            font-family: 'Cormorant Garamond', serif;
+            margin-top: 15px;
+            text-align: center;
+        }
+
+        .copy-button {
+            background: linear-gradient(145deg, #d4af37, #b8960d);
+            color: #2c1810;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-family: 'Cinzel Decorative', cursive;
+            cursor: pointer;
+            transition: all 0.3s;
+            letter-spacing: 2px;
+            margin-top: 10px;
+        }
+
+        .copy-button:hover {
+            background: linear-gradient(145deg, #b8960d, #9a7a0a);
+            transform: translateY(-2px);
+        }
+
+        /* Recipient View Styles */
+        .recipient-view .flower-selection {
+            display: none;
+        }
+
+        .recipient-flower-display {
+            text-align: center;
+            padding: 40px;
+            background: rgba(139,111,71,0.05);
+            border-radius: 10px;
+            margin-top: 30px;
+        }
+
+        .recipient-flower-display svg {
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+        }
+
+        .recipient-flower-name {
+            font-family: 'Great Vibes', cursive;
+            font-size: 2rem;
+            color: #d4738f;
+            margin-bottom: 10px;
+        }
+
+        .reply-button {
+            background: linear-gradient(145deg, #8b6f47, #6b5537);
+            color: #f4e8d8;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 8px;
+            font-size: 1.2rem;
+            font-family: 'Cinzel Decorative', cursive;
+            cursor: pointer;
+            transition: all 0.3s;
+            letter-spacing: 2px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            display: block;
+            margin: 30px auto;
+        }
+
+        .reply-button:hover {
+            background: linear-gradient(145deg, #6b5537, #5c4033);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.4);
+        }
+
+        /* Hand-drawn flowers */
+        svg.flower {
+            width: 120px;
+            height: 120px;
+        }
+
+        .petal {
+            fill: #d4738f;
+            opacity: 0.85;
+        }
+
+        .petal-accent {
+            fill: #e89bb5;
+            opacity: 0.7;
+        }
+
+        .flower-center {
+            fill: #f4d03f;
+        }
+
+        .stem {
+            stroke: #6b8e4e;
+            stroke-width: 3;
+            fill: none;
+        }
+
+        .leaf {
+            fill: #7fa650;
+        }
+
+        @media (max-width: 768px) {
+            .title {
+                font-size: 2.5rem;
+                letter-spacing: 4px;
+            }
+
+            .letter-container {
+                padding: 30px;
+            }
+
+            .letter-header {
+                font-size: 2rem;
+            }
+
+            .letter-content {
+                font-size: 1.1rem;
+            }
+
+            .flower-decoration {
+                display: none;
+            }
+
+            .flower-grid {
+                grid-template-columns: repeat(auto-fill, minmax(60px, 1fr));
+                gap: 10px;
+            }
+
+            .flower-option svg {
+                width: 50px;
+                height: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Floating decorative flowers -->
+        <div class="flower-decoration flower-1">
+            <svg class="flower" viewBox="0 0 100 100">
+                <path class="stem" d="M50 70 Q48 85 45 95" />
+                <ellipse class="leaf" cx="42" cy="80" rx="8" ry="15" transform="rotate(-30 42 80)"/>
+                <ellipse class="petal" cx="50" cy="40" rx="12" ry="18" transform="rotate(0 50 50)"/>
+                <ellipse class="petal" cx="50" cy="40" rx="12" ry="18" transform="rotate(72 50 50)"/>
+                <ellipse class="petal" cx="50" cy="40" rx="12" ry="18" transform="rotate(144 50 50)"/>
+                <ellipse class="petal" cx="50" cy="40" rx="12" ry="18" transform="rotate(216 50 50)"/>
+                <ellipse class="petal" cx="50" cy="40" rx="12" ry="18" transform="rotate(288 50 50)"/>
+                <circle class="flower-center" cx="50" cy="50" r="8"/>
+            </svg>
+        </div>
+
+        <div class="flower-decoration flower-2">
+            <svg class="flower" viewBox="0 0 100 100">
+                <path class="stem" d="M50 70 Q52 85 55 95" />
+                <ellipse class="leaf" cx="58" cy="80" rx="8" ry="15" transform="rotate(30 58 80)"/>
+                <ellipse class="petal" cx="50" cy="40" rx="12" ry="18" transform="rotate(0 50 50)"/>
+                <ellipse class="petal" cx="50" cy="40" rx="12" ry="18" transform="rotate(72 50 50)"/>
+                <ellipse class="petal" cx="50" cy="40" rx="12" ry="18" transform="rotate(144 50 50)"/>
+                <ellipse class="petal" cx="50" cy="40" rx="12" ry="18" transform="rotate(216 50 50)"/>
+                <ellipse class="petal" cx="50" cy="40" rx="12" ry="18" transform="rotate(288 50 50)"/>
+                <circle class="flower-center" cx="50" cy="50" r="8"/>
+            </svg>
+        </div>
+
+        <div class="flower-decoration flower-3">
+            <svg class="flower" viewBox="0 0 100 100">
+                <path class="stem" d="M50 70 Q48 85 45 95" />
+                <ellipse class="leaf" cx="42" cy="80" rx="8" ry="15" transform="rotate(-30 42 80)"/>
+                <ellipse class="petal-accent" cx="50" cy="38" rx="14" ry="20" transform="rotate(0 50 50)"/>
+                <ellipse class="petal-accent" cx="50" cy="38" rx="14" ry="20" transform="rotate(60 50 50)"/>
+                <ellipse class="petal-accent" cx="50" cy="38" rx="14" ry="20" transform="rotate(120 50 50)"/>
+                <ellipse class="petal-accent" cx="50" cy="38" rx="14" ry="20" transform="rotate(180 50 50)"/>
+                <ellipse class="petal-accent" cx="50" cy="38" rx="14" ry="20" transform="rotate(240 50 50)"/>
+                <ellipse class="petal-accent" cx="50" cy="38" rx="14" ry="20" transform="rotate(300 50 50)"/>
+                <circle class="flower-center" cx="50" cy="50" r="9"/>
+            </svg>
+        </div>
+
+        <div class="flower-decoration flower-4">
+            <svg class="flower" viewBox="0 0 100 100">
+                <path class="stem" d="M50 70 Q52 85 55 95" />
+                <ellipse class="leaf" cx="58" cy="80" rx="8" ry="15" transform="rotate(30 58 80)"/>
+                <ellipse class="petal" cx="50" cy="40" rx="12" ry="18" transform="rotate(45 50 50)"/>
+                <ellipse class="petal" cx="50" cy="40" rx="12" ry="18" transform="rotate(90 50 50)"/>
+                <ellipse class="petal" cx="50" cy="40" rx="12" ry="18" transform="rotate(135 50 50)"/>
+                <ellipse class="petal" cx="50" cy="40" rx="12" ry="18" transform="rotate(180 50 50)"/>
+                <ellipse class="petal" cx="50" cy="40" rx="12" ry="18" transform="rotate(225 50 50)"/>
+                <ellipse class="petal" cx="50" cy="40" rx="12" ry="18" transform="rotate(270 50 50)"/>
+                <ellipse class="petal" cx="50" cy="40" rx="12" ry="18" transform="rotate(315 50 50)"/>
+                <ellipse class="petal" cx="50" cy="40" rx="12" ry="18" transform="rotate(0 50 50)"/>
+                <circle class="flower-center" cx="50" cy="50" r="8"/>
+            </svg>
+        </div>
+
+        <h1 class="title">FOR YOU</h1>
+
+        <div class="letter-container">
+            <div class="letter-header">My Dearest Love,</div>
+
+            <div class="letter-content" id="letterContent">
+                <textarea class="editable-letter" id="letterText1" placeholder="Write your first paragraph here...">From the moment our paths crossed, my world transformed into something more beautiful than I ever imagined possible. Your smile lights up even my darkest days, and your laughter is the melody that my heart dances to. Every second spent with you feels like a precious gift, and every moment apart makes me cherish you even more.</textarea>
+
+                <!-- Music Player Section -->
+                <div class="music-player">
+                    <div class="music-header">♪ A Song Dedicated to You ♪</div>
+                    <div class="music-controls">
+                        <div class="music-source-toggle">
+                            <button class="source-btn active" onclick="switchToYouTube()">YouTube</button>
+                            <button class="source-btn" onclick="switchToMP3()">Upload MP3</button>
+                        </div>
+                        
+                        <div id="youtubeSection">
+                            <input type="text" class="youtube-input" id="youtubeUrl" placeholder="Paste YouTube URL here...">
+                        </div>
+                        
+                        <div id="mp3Section" style="display: none;">
+                            <input type="file" class="file-input" id="mp3File" accept="audio/*">
+                            <div class="file-name" id="fileName"></div>
+                        </div>
+                        
+                        <div class="time-input-group">
+                            <label>Start at:</label>
+                            <input type="number" id="startMinutes" placeholder="Min" min="0" value="0">
+                            <span>:</span>
+                            <input type="number" id="startSeconds" placeholder="Sec" min="0" max="59" value="0">
+                        </div>
+
+                        <div class="time-input-group">
+                            <label>End at:</label>
+                            <input type="number" id="endMinutes" placeholder="Min" min="0" value="0">
+                            <span>:</span>
+                            <input type="number" id="endSeconds" placeholder="Sec" min="0" max="59" value="0">
+                            <span style="font-size: 0.9rem; color: #8b6f47; font-style: italic;">(Leave 0:0 for full song)</span>
+                        </div>
+
+                        <button class="play-button" onclick="playMusic()">Play Our Song</button>
+                        
+                        <div class="player-container" id="playerContainer">
+                            <div id="player"></div>
+                        </div>
+                        
+                        <audio id="mp3Player" controls style="width: 100%; margin-top: 15px; display: none;"></audio>
+                    </div>
+                </div>
+
+                <textarea class="editable-letter" id="letterText2" placeholder="Write your second paragraph here...">You are my sunrise and my sunset, my inspiration and my peace. With you, I've discovered what it truly means to love and be loved. Thank you for being the extraordinary person you are, and for making my life infinitely better just by being in it. I promise to cherish you, support you, and love you with all that I am, today and always.</textarea>
+            </div>
+
+            <div class="signature">Forever Yours ♡</div>
+
+            <!-- Recipient Flower Display (shown only in recipient view) -->
+            <div class="recipient-flower-display" id="recipientFlowerDisplay" style="display: none;">
+                <div id="recipientFlowerContainer"></div>
+                <div class="recipient-flower-name" id="recipientFlowerName"></div>
+                <p class="selection-text">A special flower chosen just for you 💕</p>
+                <button class="reply-button" onclick="createReply()">Reply with Your Own Message</button>
+            </div>
+
+            <!-- Flower Selection Section (shown only in composer view) -->
+            <div class="flower-selection" id="flowerSelection">
+                <div class="flower-selection-header">Choose a Flower to Send</div>
+                <div class="flower-grid" id="flowerGrid"></div>
+                <div class="selected-flower-display" id="selectedFlowerDisplay">
+                    <p class="selection-text">Click a flower to select it</p>
+                </div>
+                <button class="send-button" id="sendButton" onclick="generateShareableLink()">Generate Shareable Link</button>
+                
+                <div class="share-section" id="shareSection">
+                    <h3 style="font-family: 'Cinzel Decorative', cursive; color: #5c4033; margin-bottom: 15px;">✨ Your Message is Ready! ✨</h3>
+                    <p style="color: #5c4033; margin-bottom: 10px;">Share this link with your loved one:</p>
+                    <input type="text" class="share-link-input" id="shareLinkInput" readonly>
+                    <button class="copy-button" onclick="copyShareLink()">Copy Link</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        let player;
+        let playerReady = false;
+        let selectedFlower = null;
+        let endTime = 0;
+        let checkInterval;
+        let currentMusicSource = 'youtube'; // 'youtube' or 'mp3'
+        let mp3AudioElement = null;
+
+        function onYouTubeIframeAPIReady() {
+            playerReady = true;
+        }
+
+        function switchToYouTube() {
+            currentMusicSource = 'youtube';
+            document.getElementById('youtubeSection').style.display = 'block';
+            document.getElementById('mp3Section').style.display = 'none';
+            document.querySelectorAll('.source-btn')[0].classList.add('active');
+            document.querySelectorAll('.source-btn')[1].classList.remove('active');
+        }
+
+        function switchToMP3() {
+            currentMusicSource = 'mp3';
+            document.getElementById('youtubeSection').style.display = 'none';
+            document.getElementById('mp3Section').style.display = 'block';
+            document.querySelectorAll('.source-btn')[0].classList.remove('active');
+            document.querySelectorAll('.source-btn')[1].classList.add('active');
+        }
+
+        // Handle MP3 file selection
+        document.addEventListener('DOMContentLoaded', function() {
+            const mp3Input = document.getElementById('mp3File');
+            if (mp3Input) {
+                mp3Input.addEventListener('change', function(e) {
+                    const file = e.target.files[0];
+                    if (file) {
+                        document.getElementById('fileName').textContent = `Selected: ${file.name}`;
+                    }
+                });
+            }
+        });
+
+        function extractVideoId(url) {
+            const regExp = /^.*((youtu.be\/)|(v\/)|(\/u\/\w\/)|(embed\/)|(watch\?))\??v?=?([^#&?]*).*/;
+            const match = url.match(regExp);
+            return (match && match[7].length === 11) ? match[7] : null;
+        }
+
+        function playMusic() {
+            const startMin = parseInt(document.getElementById('startMinutes').value) || 0;
+            const startSec = parseInt(document.getElementById('startSeconds').value) || 0;
+            const endMin = parseInt(document.getElementById('endMinutes').value) || 0;
+            const endSec = parseInt(document.getElementById('endSeconds').value) || 0;
+            
+            const startTime = (startMin * 60) + startSec;
+            endTime = (endMin * 60) + endSec;
+
+            if (currentMusicSource === 'youtube') {
+                const url = document.getElementById('youtubeUrl').value;
+                const videoId = extractVideoId(url);
+                
+                if (!videoId) {
+                    alert('Please enter a valid YouTube URL');
+                    return;
+                }
+
+                document.getElementById('playerContainer').style.display = 'block';
+                document.getElementById('mp3Player').style.display = 'none';
+
+                if (player && player.loadVideoById) {
+                    player.loadVideoById({
+                        videoId: videoId,
+                        startSeconds: startTime
+                    });
+                    if (endTime > 0) {
+                        startEndTimeCheck();
+                    }
+                } else {
+                    player = new YT.Player('player', {
+                        height: '200',
+                        width: '100%',
+                        videoId: videoId,
+                        playerVars: {
+                            'start': startTime,
+                            'autoplay': 1
+                        },
+                        events: {
+                            'onReady': () => {
+                                if (endTime > 0) {
+                                    startEndTimeCheck();
+                                }
+                            }
+                        }
+                    });
+                }
+            } else if (currentMusicSource === 'mp3') {
+                const fileInput = document.getElementById('mp3File');
+                const file = fileInput.files[0];
+                
+                if (!file) {
+                    alert('Please select an MP3 file');
+                    return;
+                }
+
+                const audioPlayer = document.getElementById('mp3Player');
+                audioPlayer.style.display = 'block';
+                document.getElementById('playerContainer').style.display = 'none';
+                
+                const objectURL = URL.createObjectURL(file);
+                audioPlayer.src = objectURL;
+                audioPlayer.currentTime = startTime;
+                audioPlayer.play();
+
+                if (endTime > 0) {
+                    audioPlayer.addEventListener('timeupdate', function() {
+                        if (audioPlayer.currentTime >= endTime) {
+                            audioPlayer.pause();
+                        }
+                    });
+                }
+            }
+        }
+
+        function startEndTimeCheck() {
+            if (checkInterval) clearInterval(checkInterval);
+            checkInterval = setInterval(() => {
+                if (player && player.getCurrentTime) {
+                    const currentTime = player.getCurrentTime();
+                    if (endTime > 0 && currentTime >= endTime) {
+                        player.pauseVideo();
+                        clearInterval(checkInterval);
+                    }
+                }
+            }, 100);
+        }
+
+        // 50 Unique Beautiful Flowers - Each completely different!
+        const flowerTypes = [
+            // 1. Classic Rose - layered petals
+            { name: 'Rose', type: 'custom', draw: (svg) => {
+                for(let layer = 0; layer < 3; layer++) {
+                    for(let i = 0; i < 8; i++) {
+                        const petal = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                        petal.setAttribute('cx', '50'); petal.setAttribute('cy', 35 + layer*3);
+                        petal.setAttribute('rx', 12 - layer*2); petal.setAttribute('ry', 18 - layer*3);
+                        petal.setAttribute('fill', `hsl(340, 85%, ${60-layer*10}%)`);
+                        petal.setAttribute('transform', `rotate(${i*45 + layer*20} 50 50)`);
+                        svg.appendChild(petal);
+                    }
+                }
+                const center = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                center.setAttribute('cx', '50'); center.setAttribute('cy', '50'); center.setAttribute('r', '6');
+                center.setAttribute('fill', '#8b1538'); svg.appendChild(center);
+            }},
+            
+            // 2. Sunflower - with seed pattern
+            { name: 'Sunflower', type: 'custom', draw: (svg) => {
+                for(let i = 0; i < 14; i++) {
+                    const petal = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                    petal.setAttribute('cx', '50'); petal.setAttribute('cy', '35');
+                    petal.setAttribute('rx', '14'); petal.setAttribute('ry', '16');
+                    petal.setAttribute('fill', '#ffd700'); petal.setAttribute('transform', `rotate(${i*25.7} 50 50)`);
+                    svg.appendChild(petal);
+                }
+                const center = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                center.setAttribute('cx', '50'); center.setAttribute('cy', '50'); center.setAttribute('r', '12');
+                center.setAttribute('fill', '#654321'); svg.appendChild(center);
+                for(let i = 0; i < 20; i++) {
+                    const seed = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                    const angle = (i / 20) * Math.PI * 2;
+                    seed.setAttribute('cx', 50 + Math.cos(angle) * 6);
+                    seed.setAttribute('cy', 50 + Math.sin(angle) * 6);
+                    seed.setAttribute('r', '1.5'); seed.setAttribute('fill', '#8b4513');
+                    svg.appendChild(seed);
+                }
+            }},
+            
+            // 3. Tulip - cup shaped
+            { name: 'Tulip', type: 'custom', draw: (svg) => {
+                const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                path.setAttribute('d', 'M35 55 Q35 35 40 30 Q50 25 60 30 Q65 35 65 55 Z');
+                path.setAttribute('fill', '#ff6b9d'); path.setAttribute('opacity', '0.9');
+                svg.appendChild(path);
+                const inner = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                inner.setAttribute('cx', '50'); inner.setAttribute('cy', '45');
+                inner.setAttribute('rx', '8'); inner.setAttribute('ry', '12');
+                inner.setAttribute('fill', '#ffb3d9'); svg.appendChild(inner);
+                const stamen = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                stamen.setAttribute('cx', '50'); stamen.setAttribute('cy', '50'); stamen.setAttribute('r', '4');
+                stamen.setAttribute('fill', '#2d1810'); svg.appendChild(stamen);
+            }},
+            
+            // 4. Daisy - white with yellow center
+            { name: 'Daisy', type: 'custom', draw: (svg) => {
+                for(let i = 0; i < 18; i++) {
+                    const petal = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                    petal.setAttribute('cx', '50'); petal.setAttribute('cy', '38');
+                    petal.setAttribute('rx', '5'); petal.setAttribute('ry', '15');
+                    petal.setAttribute('fill', '#ffffff'); petal.setAttribute('stroke', '#f0f0f0');
+                    petal.setAttribute('transform', `rotate(${i*20} 50 50)`);
+                    svg.appendChild(petal);
+                }
+                const center = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                center.setAttribute('cx', '50'); center.setAttribute('cy', '50'); center.setAttribute('r', '8');
+                center.setAttribute('fill', '#ffd700'); svg.appendChild(center);
+            }},
+            
+            // 5. Lotus - multi-layered sacred flower
+            { name: 'Lotus', type: 'custom', draw: (svg) => {
+                const layers = [[16, 40, '#ffb3d9'], [12, 38, '#ffc9e6'], [8, 36, '#ffd9ec']];
+                layers.forEach(([count, cy, color]) => {
+                    for(let i = 0; i < count; i++) {
+                        const petal = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                        petal.setAttribute('cx', '50'); petal.setAttribute('cy', cy);
+                        petal.setAttribute('rx', '9'); petal.setAttribute('ry', '14');
+                        petal.setAttribute('fill', color); petal.setAttribute('transform', `rotate(${i*(360/count)} 50 50)`);
+                        svg.appendChild(petal);
+                    }
+                });
+                const center = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                center.setAttribute('cx', '50'); center.setAttribute('cy', '50'); center.setAttribute('r', '7');
+                center.setAttribute('fill', '#ffd700'); svg.appendChild(center);
+            }},
+            
+            // 6. Orchid - exotic asymmetric
+            { name: 'Orchid', type: 'custom', draw: (svg) => {
+                const petals = [[50, 30, 15, 18, 0], [35, 42, 12, 16, -30], [65, 42, 12, 16, 30]];
+                petals.forEach(([cx, cy, rx, ry, rot]) => {
+                    const petal = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                    petal.setAttribute('cx', cx); petal.setAttribute('cy', cy);
+                    petal.setAttribute('rx', rx); petal.setAttribute('ry', ry);
+                    petal.setAttribute('fill', '#da70d6'); petal.setAttribute('transform', `rotate(${rot} ${cx} ${cy})`);
+                    svg.appendChild(petal);
+                });
+                const lip = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                lip.setAttribute('d', 'M40 52 Q50 58 60 52 Q55 62 50 65 Q45 62 40 52');
+                lip.setAttribute('fill', '#ff69b4'); svg.appendChild(lip);
+                const center = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                center.setAttribute('cx', '50'); center.setAttribute('cy', '48');
+                center.setAttribute('rx', '4'); center.setAttribute('ry', '6');
+                center.setAttribute('fill', '#fff700'); svg.appendChild(center);
+            }},
+            
+            // 7-50: Rest of the flowers [continuing with all 50...]
+            // I'll add shortened versions of remaining flowers for space
+            
+            { name: 'Peony', type: 'custom', draw: (svg) => {
+                for(let layer = 0; layer < 4; layer++) {
+                    const count = 20 - layer * 4;
+                    for(let i = 0; i < count; i++) {
+                        const petal = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                        petal.setAttribute('cx', '50'); petal.setAttribute('cy', 38 + layer * 2);
+                        petal.setAttribute('rx', 7 - layer); petal.setAttribute('ry', 13 - layer * 2);
+                        petal.setAttribute('fill', `hsl(320, 80%, ${70 - layer * 8}%)`);
+                        petal.setAttribute('transform', `rotate(${i * (360 / count) + layer * 10} 50 50)`);
+                        svg.appendChild(petal);
+                    }
+                }
+            }},
+            
+            { name: 'Hibiscus', type: 'custom', draw: (svg) => {
+                for(let i = 0; i < 5; i++) {
+                    const petal = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    const angle = i * 72;
+                    petal.setAttribute('d', 'M50 50 Q40 30 35 25 Q50 20 65 25 Q60 30 50 50');
+                    petal.setAttribute('fill', '#ff1493'); petal.setAttribute('transform', `rotate(${angle} 50 50)`);
+                    svg.appendChild(petal);
+                }
+                const stamen = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                stamen.setAttribute('x1', '50'); stamen.setAttribute('y1', '50');
+                stamen.setAttribute('x2', '50'); stamen.setAttribute('y2', '28');
+                stamen.setAttribute('stroke', '#ffd700'); stamen.setAttribute('stroke-width', '3');
+                svg.appendChild(stamen);
+                const anther = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                anther.setAttribute('cx', '50'); anther.setAttribute('cy', '28'); anther.setAttribute('r', '4');
+                anther.setAttribute('fill', '#ff8c00'); svg.appendChild(anther);
+            }},
+            
+            { name: 'Cherry Blossom', type: 'custom', draw: (svg) => {
+                for(let i = 0; i < 5; i++) {
+                    const petal = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    petal.setAttribute('d', 'M50 50 Q48 35 50 30 Q52 35 50 50');
+                    petal.setAttribute('fill', '#ffb7c5'); petal.setAttribute('stroke', '#ff69b4');
+                    petal.setAttribute('transform', `rotate(${i * 72} 50 50)`);
+                    svg.appendChild(petal);
+                }
+                const center = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                center.setAttribute('cx', '50'); center.setAttribute('cy', '50'); center.setAttribute('r', '5');
+                center.setAttribute('fill', '#ffe4e1'); svg.appendChild(center);
+            }},
+            
+            { name: 'Carnation', type: 'custom', draw: (svg) => {
+                for(let layer = 0; layer < 3; layer++) {
+                    for(let i = 0; i < 12; i++) {
+                        const petal = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                        petal.setAttribute('d', `M50 50 Q${45 - layer * 2} ${40 + layer * 3} ${42 - layer * 2} ${35 + layer * 3} Q${48 - layer} ${30 + layer * 3} ${50} ${35 + layer * 3} Q${52 + layer} ${30 + layer * 3} ${58 + layer * 2} ${35 + layer * 3} Q${55 + layer * 2} ${40 + layer * 3} 50 50`);
+                        petal.setAttribute('fill', `hsl(340, 90%, ${60 + layer * 10}%)`);
+                        petal.setAttribute('transform', `rotate(${i * 30 + layer * 15} 50 50)`);
+                        svg.appendChild(petal);
+                    }
+                }
+            }},
+            
+            // Continuing with more unique flowers...
+            { name: 'Lavender', type: 'custom', draw: (svg) => {
+                for(let i = 0; i < 8; i++) {
+                    const cluster = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                    cluster.setAttribute('cx', '50'); cluster.setAttribute('cy', 30 + i * 4);
+                    cluster.setAttribute('rx', 8 - i * 0.5); cluster.setAttribute('ry', 4);
+                    cluster.setAttribute('fill', `hsl(260, 70%, ${50 + i * 3}%)`);
+                    svg.appendChild(cluster);
+                }
+            }},
+            
+            { name: 'Poppy', type: 'custom', draw: (svg) => {
+                for(let i = 0; i < 4; i++) {
+                    const petal = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                    petal.setAttribute('cx', '50'); petal.setAttribute('cy', '38');
+                    petal.setAttribute('rx', '16'); petal.setAttribute('ry', '18');
+                    petal.setAttribute('fill', '#ff4500'); petal.setAttribute('opacity', '0.85');
+                    petal.setAttribute('transform', `rotate(${i * 90} 50 50)`);
+                    svg.appendChild(petal);
+                }
+                const center = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                center.setAttribute('cx', '50'); center.setAttribute('cy', '50'); center.setAttribute('r', '10');
+                center.setAttribute('fill', '#000000'); center.setAttribute('opacity', '0.7');
+                svg.appendChild(center);
+            }},
+            
+            { name: 'Lily', type: 'custom', draw: (svg) => {
+                for(let i = 0; i < 6; i++) {
+                    const petal = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                    petal.setAttribute('cx', '50'); petal.setAttribute('cy', '32');
+                    petal.setAttribute('rx', '10'); petal.setAttribute('ry', '22');
+                    petal.setAttribute('fill', '#ffa07a'); petal.setAttribute('stroke', '#ff7f50');
+                    petal.setAttribute('transform', `rotate(${i * 60} 50 50)`);
+                    svg.appendChild(petal);
+                }
+            }},
+            
+            { name: 'Magnolia', type: 'custom', draw: (svg) => {
+                for(let i = 0; i < 9; i++) {
+                    const petal = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                    petal.setAttribute('cx', '50'); petal.setAttribute('cy', '36');
+                    petal.setAttribute('rx', '13'); petal.setAttribute('ry', '20');
+                    petal.setAttribute('fill', i < 6 ? '#fffaf0' : '#fff5ee');
+                    petal.setAttribute('transform', `rotate(${i * 40} 50 50)`);
+                    svg.appendChild(petal);
+                }
+            }},
+            
+            { name: 'Marigold', type: 'custom', draw: (svg) => {
+                for(let layer = 0; layer < 5; layer++) {
+                    for(let i = 0; i < 16 - layer * 2; i++) {
+                        const petal = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                        petal.setAttribute('x', '48'); petal.setAttribute('y', 36 + layer * 2);
+                        petal.setAttribute('width', '4'); petal.setAttribute('height', 10 - layer);
+                        petal.setAttribute('fill', `hsl(36, 100%, ${45 + layer * 8}%)`);
+                        petal.setAttribute('rx', '2');
+                        petal.setAttribute('transform', `rotate(${i * (360 / (16 - layer * 2))} 50 50)`);
+                        svg.appendChild(petal);
+                    }
+                }
+            }},
+            
+            { name: 'Dahlia', type: 'custom', draw: (svg) => {
+                for(let layer = 0; layer < 4; layer++) {
+                    const count = 10 + layer * 5;
+                    for(let i = 0; i < count; i++) {
+                        const petal = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                        petal.setAttribute('cx', '50'); petal.setAttribute('cy', 35 + layer * 3);
+                        petal.setAttribute('rx', 4 + layer); petal.setAttribute('ry', 14 - layer * 2);
+                        petal.setAttribute('fill', `hsl(350, 85%, ${50 - layer * 5}%)`);
+                        petal.setAttribute('transform', `rotate(${i * (360 / count)} 50 50)`);
+                        svg.appendChild(petal);
+                    }
+                }
+            }},
+            
+            { name: 'Iris', type: 'custom', draw: (svg) => {
+                for(let i = 0; i < 3; i++) {
+                    const petal = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                    petal.setAttribute('cx', '50'); petal.setAttribute('cy', '35');
+                    petal.setAttribute('rx', '12'); petal.setAttribute('ry', '16');
+                    petal.setAttribute('fill', '#9370db');
+                    petal.setAttribute('transform', `rotate(${i * 120} 50 50)`);
+                    svg.appendChild(petal);
+                }
+            }},
+            
+            { name: 'Anemone', type: 'custom', draw: (svg) => {
+                for(let i = 0; i < 8; i++) {
+                    const petal = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                    petal.setAttribute('cx', '50'); petal.setAttribute('cy', '36');
+                    petal.setAttribute('rx', '13'); petal.setAttribute('ry', '17');
+                    petal.setAttribute('fill', '#ff69b4');
+                    petal.setAttribute('transform', `rotate(${i * 45} 50 50)`);
+                    svg.appendChild(petal);
+                }
+                const center = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                center.setAttribute('cx', '50'); center.setAttribute('cy', '50'); center.setAttribute('r', '12');
+                center.setAttribute('fill', '#1a1a1a'); svg.appendChild(center);
+            }},
+            
+            { name: 'Protea', type: 'custom', draw: (svg) => {
+                for(let layer = 0; layer < 3; layer++) {
+                    for(let i = 0; i < 12; i++) {
+                        const bract = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                        bract.setAttribute('d', 'M50 50 Q48 40 47 32 L50 30 L53 32 Q52 40 50 50');
+                        bract.setAttribute('fill', `hsl(${330 + layer * 10}, 70%, ${60 - layer * 10}%)`);
+                        bract.setAttribute('transform', `rotate(${i * 30 + layer * 15} 50 50)`);
+                        svg.appendChild(bract);
+                    }
+                }
+            }},
+            
+            { name: 'Cosmos', type: 'custom', draw: (svg) => {
+                for(let i = 0; i < 8; i++) {
+                    const petal = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    petal.setAttribute('d', 'M50 50 Q48 38 50 30 Q52 38 50 50');
+                    petal.setAttribute('fill', '#ffb3d9'); petal.setAttribute('stroke', '#ff69b4');
+                    petal.setAttribute('stroke-width', '0.5');
+                    petal.setAttribute('transform', `rotate(${i * 45} 50 50)`);
+                    svg.appendChild(petal);
+                }
+            }},
+            
+            { name: 'Morning Glory', type: 'custom', draw: (svg) => {
+                const trumpet = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                trumpet.setAttribute('d', 'M50 50 Q30 40 28 30 Q50 25 72 30 Q70 40 50 50');
+                trumpet.setAttribute('fill', '#6a5acd'); trumpet.setAttribute('stroke', '#483d8b');
+                svg.appendChild(trumpet);
+            }},
+            
+            { name: 'Zinnia', type: 'custom', draw: (svg) => {
+                for(let i = 0; i < 12; i++) {
+                    const petal = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                    petal.setAttribute('cx', '50'); petal.setAttribute('cy', '37');
+                    petal.setAttribute('rx', '11'); petal.setAttribute('ry', '16');
+                    petal.setAttribute('fill', '#ff6347');
+                    petal.setAttribute('transform', `rotate(${i * 30} 50 50)`);
+                    svg.appendChild(petal);
+                }
+            }},
+            
+            { name: 'Freesia', type: 'custom', draw: (svg) => {
+                for(let i = 0; i < 5; i++) {
+                    const tube = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                    tube.setAttribute('x', '46'); tube.setAttribute('y', 30 + i * 5);
+                    tube.setAttribute('width', '8'); tube.setAttribute('height', '12');
+                    tube.setAttribute('fill', `hsl(290, 70%, ${60 + i * 5}%)`);
+                    tube.setAttribute('rx', '4');
+                    svg.appendChild(tube);
+                }
+            }},
+            
+            { name: 'Camellia', type: 'custom', draw: (svg) => {
+                for(let layer = 0; layer < 4; layer++) {
+                    const count = 8 + layer * 2;
+                    for(let i = 0; i < count; i++) {
+                        const petal = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                        petal.setAttribute('cx', '50'); petal.setAttribute('cy', 38 + layer * 2);
+                        petal.setAttribute('rx', 10 - layer); petal.setAttribute('ry', 14 - layer * 2);
+                        petal.setAttribute('fill', `hsl(350, 80%, ${65 - layer * 5}%)`);
+                        petal.setAttribute('transform', `rotate(${i * (360 / count) + layer * 10} 50 50)`);
+                        svg.appendChild(petal);
+                    }
+                }
+            }},
+            
+            { name: 'Ranunculus', type: 'custom', draw: (svg) => {
+                for(let layer = 0; layer < 5; layer++) {
+                    const count = 12 - layer * 2;
+                    for(let i = 0; i < count; i++) {
+                        const petal = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                        const angle = (i * (360 / count) + layer * 15) * Math.PI / 180;
+                        const radius = 12 - layer * 2;
+                        petal.setAttribute('cx', 50 + Math.cos(angle) * radius);
+                        petal.setAttribute('cy', 50 + Math.sin(angle) * radius);
+                        petal.setAttribute('r', 6 - layer * 0.5);
+                        petal.setAttribute('fill', `hsl(30, 90%, ${60 + layer * 5}%)`);
+                        svg.appendChild(petal);
+                    }
+                }
+            }},
+            
+            { name: 'Columbine', type: 'custom', draw: (svg) => {
+                for(let i = 0; i < 5; i++) {
+                    const spur = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    spur.setAttribute('d', 'M50 50 Q48 38 50 28 L50 50');
+                    spur.setAttribute('fill', '#9370db');
+                    spur.setAttribute('transform', `rotate(${i * 72} 50 50)`);
+                    svg.appendChild(spur);
+                }
+            }},
+            
+            { name: 'Daffodil', type: 'custom', draw: (svg) => {
+                for(let i = 0; i < 6; i++) {
+                    const petal = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                    petal.setAttribute('cx', '50'); petal.setAttribute('cy', '38');
+                    petal.setAttribute('rx', '10'); petal.setAttribute('ry', '14');
+                    petal.setAttribute('fill', '#ffeb3b');
+                    petal.setAttribute('transform', `rotate(${i * 60} 50 50)`);
+                    svg.appendChild(petal);
+                }
+                const corona = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                corona.setAttribute('cx', '50'); corona.setAttribute('cy', '50');
+                corona.setAttribute('r', '10'); corona.setAttribute('fill', '#ff8c00');
+                svg.appendChild(corona);
+            }},
+            
+            { name: 'Snapdragon', type: 'custom', draw: (svg) => {
+                for(let i = 0; i < 6; i++) {
+                    const bloom = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    bloom.setAttribute('d', 'M45 0 Q40 -5 45 -8 L55 -8 Q60 -5 55 0 Z');
+                    bloom.setAttribute('fill', `hsl(320, 80%, ${50 + i * 5}%)`);
+                    bloom.setAttribute('transform', `translate(0 ${32 + i * 5})`);
+                    svg.appendChild(bloom);
+                }
+            }},
+            
+            { name: 'Delphinium', type: 'custom', draw: (svg) => {
+                for(let i = 0; i < 7; i++) {
+                    const floret = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+                    floret.setAttribute('cx', '50'); floret.setAttribute('cy', 28 + i * 5);
+                    floret.setAttribute('r', 6 - i * 0.3);
+                    floret.setAttribute('fill', `hsl(230, 80%, ${50 + i * 3}%)`);
+                    svg.appendChild(floret);
+                }
+            }},
+            
+            { name: 'Sweet Pea', type: 'custom', draw: (svg) => {
+                const banner = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                banner.setAttribute('cx', '50'); banner.setAttribute('cy', '40');
+                banner.setAttribute('rx', '15'); banner.setAttribute('ry', '12');
+                banner.setAttribute('fill', '#ffb6d9'); svg.appendChild(banner);
+            }},
+            
+            { name: 'Hydrangea', type: 'custom', draw: (svg) => {
+                for(let i = 0; i < 7; i++) {
+                    const angle = (i / 7) * Math.PI * 2;
+                    const x = 50 + Math.cos(angle) * 12;
+                    const y = 50 + Math.sin(angle) * 12;
+                    for(let j = 0; j < 4; j++) {
+                        const petal = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                        petal.setAttribute('cx', x); petal.setAttribute('cy', y - 4);
+                        petal.setAttribute('rx', '4'); petal.setAttribute('ry', '5');
+                        petal.setAttribute('fill', '#87ceeb');
+                        petal.setAttribute('transform', `rotate(${j * 90} ${x} ${y})`);
+                        svg.appendChild(petal);
+                    }
+                }
+            }},
+            
+            { name: 'Bleeding Heart', type: 'custom', draw: (svg) => {
+                for(let i = 0; i < 5; i++) {
+                    const heart = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    heart.setAttribute('d', 'M50 5 Q40 -2 35 3 Q30 8 35 13 L50 23 L65 13 Q70 8 65 3 Q60 -2 50 5');
+                    heart.setAttribute('fill', '#ff69b4');
+                    heart.setAttribute('transform', `translate(${-10 + i * 5} ${30 + i * 4}) scale(0.3)`);
+                    svg.appendChild(heart);
+                }
+            }},
+            
+            { name: 'Bird of Paradise', type: 'custom', draw: (svg) => {
+                const bract = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                bract.setAttribute('d', 'M30 50 L40 35 L50 50 Z');
+                bract.setAttribute('fill', '#ff8c00'); svg.appendChild(bract);
+                for(let i = 0; i < 5; i++) {
+                    const petal = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    petal.setAttribute('d', 'M50 50 L55 25 L58 50');
+                    petal.setAttribute('fill', i < 3 ? '#4169e1' : '#ff4500');
+                    petal.setAttribute('transform', `rotate(${-30 + i * 15} 50 50)`);
+                    svg.appendChild(petal);
+                }
+            }},
+            
+            { name: 'Foxglove', type: 'custom', draw: (svg) => {
+                for(let i = 0; i < 6; i++) {
+                    const bell = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                    bell.setAttribute('cx', '50'); bell.setAttribute('cy', 30 + i * 6);
+                    bell.setAttribute('rx', 8 - i * 0.5); bell.setAttribute('ry', 10 - i * 0.5);
+                    bell.setAttribute('fill', `hsl(300, 70%, ${55 + i * 4}%)`);
+                    svg.appendChild(bell);
+                }
+            }},
+            
+            { name: 'Coneflower', type: 'custom', draw: (svg) => {
+                for(let i = 0; i < 10; i++) {
+                    const petal = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    petal.setAttribute('d', 'M50 50 Q48 60 50 65');
+                    petal.setAttribute('stroke', '#ff69b4'); petal.setAttribute('stroke-width', '6');
+                    petal.setAttribute('fill', 'none'); petal.setAttribute('stroke-linecap', 'round');
+                    petal.setAttribute('transform', `rotate(${i * 36} 50 50)`);
+                    svg.appendChild(petal);
+                }
+            }},
+            
+            { name: 'Azalea', type: 'custom', draw: (svg) => {
+                for(let i = 0; i < 5; i++) {
+                    const angle = (i / 5) * Math.PI * 2;
+                    for(let j = 0; j < 5; j++) {
+                        const petal = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                        petal.setAttribute('cx', 50 + Math.cos(angle) * 12);
+                        petal.setAttribute('cy', 50 + Math.sin(angle) * 12 - 3);
+                        petal.setAttribute('rx', '6'); petal.setAttribute('ry', '8');
+                        petal.setAttribute('fill', '#ff1493');
+                        petal.setAttribute('transform', `rotate(${j * 72} ${50 + Math.cos(angle) * 12} ${50 + Math.sin(angle) * 12})`);
+                        svg.appendChild(petal);
+                    }
+                }
+            }},
+            
+            { name: 'Gardenia', type: 'custom', draw: (svg) => {
+                for(let layer = 0; layer < 3; layer++) {
+                    for(let i = 0; i < 6 + layer * 2; i++) {
+                        const petal = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                        petal.setAttribute('cx', '50'); petal.setAttribute('cy', 38 + layer * 3);
+                        petal.setAttribute('rx', 11 - layer); petal.setAttribute('ry', 15 - layer * 2);
+                        petal.setAttribute('fill', `hsl(60, 20%, ${95 - layer * 5}%)`);
+                        petal.setAttribute('transform', `rotate(${i * (360 / (6 + layer * 2))} 50 50)`);
+                        svg.appendChild(petal);
+                    }
+                }
+            }},
+            
+            { name: 'Aster', type: 'custom', draw: (svg) => {
+                for(let i = 0; i < 24; i++) {
+                    const petal = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+                    petal.setAttribute('x', '49'); petal.setAttribute('y', '32');
+                    petal.setAttribute('width', '2'); petal.setAttribute('height', '16');
+                    petal.setAttribute('fill', '#9370db'); petal.setAttribute('rx', '1');
+                    petal.setAttribute('transform', `rotate(${i * 15} 50 50)`);
+                    svg.appendChild(petal);
+                }
+            }},
+            
+            { name: 'Crocus', type: 'custom', draw: (svg) => {
+                for(let i = 0; i < 6; i++) {
+                    const petal = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                    petal.setAttribute('cx', '50'); petal.setAttribute('cy', '38');
+                    petal.setAttribute('rx', '10'); petal.setAttribute('ry', '16');
+                    petal.setAttribute('fill', '#9370db');
+                    petal.setAttribute('transform', `rotate(${i * 60} 50 50)`);
+                    svg.appendChild(petal);
+                }
+            }},
+            
+            { name: 'Clematis', type: 'custom', draw: (svg) => {
+                for(let i = 0; i < 6; i++) {
+                    const sepal = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                    sepal.setAttribute('cx', '50'); sepal.setAttribute('cy', '35');
+                    sepal.setAttribute('rx', '14'); sepal.setAttribute('ry', '18');
+                    sepal.setAttribute('fill', '#6a5acd');
+                    sepal.setAttribute('transform', `rotate(${i * 60} 50 50)`);
+                    svg.appendChild(sepal);
+                }
+            }},
+            
+            { name: 'Wisteria', type: 'custom', draw: (svg) => {
+                for(let i = 0; i < 8; i++) {
+                    const cluster = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                    cluster.setAttribute('cx', '50'); cluster.setAttribute('cy', 28 + i * 5);
+                    cluster.setAttribute('rx', 7 - i * 0.5); cluster.setAttribute('ry', 5);
+                    cluster.setAttribute('fill', `hsl(270, 60%, ${55 + i * 3}%)`);
+                    svg.appendChild(cluster);
+                }
+            }},
+            
+            { name: 'Hollyhock', type: 'custom', draw: (svg) => {
+                for(let i = 0; i < 5; i++) {
+                    for(let j = 0; j < 5; j++) {
+                        const petal = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                        petal.setAttribute('cx', '50'); petal.setAttribute('cy', 36);
+                        petal.setAttribute('rx', '10'); petal.setAttribute('ry', '12');
+                        petal.setAttribute('fill', '#ff69b4');
+                        petal.setAttribute('transform', `translate(0 ${i * 8}) rotate(${j * 72} 50 ${36 + i * 8})`);
+                        svg.appendChild(petal);
+                    }
+                }
+            }},
+            
+            { name: 'Jasmine', type: 'custom', draw: (svg) => {
+                for(let cluster = 0; cluster < 3; cluster++) {
+                    const angle = (cluster / 3) * Math.PI * 2;
+                    const cx = 50 + Math.cos(angle) * 10;
+                    const cy = 50 + Math.sin(angle) * 10;
+                    for(let i = 0; i < 5; i++) {
+                        const petal = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                        petal.setAttribute('cx', cx); petal.setAttribute('cy', cy - 4);
+                        petal.setAttribute('rx', '3'); petal.setAttribute('ry', '5');
+                        petal.setAttribute('fill', '#fffff0');
+                        petal.setAttribute('transform', `rotate(${i * 72} ${cx} ${cy})`);
+                        svg.appendChild(petal);
+                    }
+                }
+            }},
+            
+            { name: 'Anthurium', type: 'custom', draw: (svg) => {
+                const spathe = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                spathe.setAttribute('d', 'M50 25 Q35 25 30 35 Q28 45 35 55 Q45 62 50 63 Q55 62 65 55 Q72 45 70 35 Q65 25 50 25');
+                spathe.setAttribute('fill', '#dc143c'); spathe.setAttribute('stroke', '#8b0000');
+                svg.appendChild(spathe);
+            }},
+            
+            { name: 'Hellebore', type: 'custom', draw: (svg) => {
+                for(let i = 0; i < 5; i++) {
+                    const sepal = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                    sepal.setAttribute('cx', '50'); sepal.setAttribute('cy', '38');
+                    sepal.setAttribute('rx', '12'); sepal.setAttribute('ry', '15');
+                    sepal.setAttribute('fill', '#e6e6fa');
+                    sepal.setAttribute('transform', `rotate(${i * 72} 50 50)`);
+                    svg.appendChild(sepal);
+                }
+            }},
+            
+            { name: 'Dianthus', type: 'custom', draw: (svg) => {
+                for(let i = 0; i < 10; i++) {
+                    const petal = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    petal.setAttribute('d', 'M50 50 Q48 40 50 35 L50.5 35 Q52 40 50 50');
+                    petal.setAttribute('fill', '#ff69b4');
+                    petal.setAttribute('transform', `rotate(${i * 36} 50 50)`);
+                    svg.appendChild(petal);
+                }
+            }},
+            
+            { name: 'Calla Lily', type: 'custom', draw: (svg) => {
+                const spathe = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                spathe.setAttribute('d', 'M45 60 Q35 50 35 40 Q35 30 45 25 Q50 23 55 25 Q60 30 55 40 L50 60 Z');
+                spathe.setAttribute('fill', '#fffaf0'); spathe.setAttribute('stroke', '#f5f5dc');
+                svg.appendChild(spathe);
+            }},
+            
+            { name: 'Bougainvillea', type: 'custom', draw: (svg) => {
+                for(let i = 0; i < 3; i++) {
+                    const bract = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    bract.setAttribute('d', 'M50 50 Q45 40 40 35 L48 38 L50 50');
+                    bract.setAttribute('fill', '#ff1493');
+                    bract.setAttribute('transform', `rotate(${i * 120} 50 50)`);
+                    svg.appendChild(bract);
+                }
+            }},
+            
+            { name: 'Plumeria', type: 'custom', draw: (svg) => {
+                for(let i = 0; i < 5; i++) {
+                    const petal = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                    petal.setAttribute('d', 'M50 50 Q45 40 47 32 Q50 28 53 32 Q55 40 50 50');
+                    petal.setAttribute('fill', '#fffaf0'); petal.setAttribute('stroke', '#ffd700');
+                    petal.setAttribute('transform', `rotate(${i * 72} 50 50)`);
+                    svg.appendChild(petal);
+                }
+            }},
+            
+            { name: 'Water Lily', type: 'custom', draw: (svg) => {
+                for(let layer = 0; layer < 3; layer++) {
+                    for(let i = 0; i < 8 + layer * 2; i++) {
+                        const petal = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+                        petal.setAttribute('cx', '50'); petal.setAttribute('cy', 36 + layer * 3);
+                        petal.setAttribute('rx', 12 - layer * 2); petal.setAttribute('ry', 17 - layer * 3);
+                        petal.setAttribute('fill', `hsl(300, 60%, ${85 - layer * 10}%)`);
+                        petal.setAttribute('transform', `rotate(${i * (360 / (8 + layer * 2))} 50 50)`);
+                        svg.appendChild(petal);
+                    }
+                }
+            }}
+        ];
+
+        function createFlowerSVG(flowerData, size = 60) {
+            const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+            svg.setAttribute('viewBox', '0 0 100 100');
+            svg.setAttribute('width', size);
+            svg.setAttribute('height', size);
+
+            // Add stem
+            const stem = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            stem.setAttribute('d', 'M50 70 Q48 85 45 95');
+            stem.setAttribute('stroke', '#6b8e4e');
+            stem.setAttribute('stroke-width', '3');
+            stem.setAttribute('fill', 'none');
+            svg.appendChild(stem);
+
+            // Add leaf
+            const leaf = document.createElementNS('http://www.w3.org/2000/svg', 'ellipse');
+            leaf.setAttribute('cx', '42');
+            leaf.setAttribute('cy', '80');
+            leaf.setAttribute('rx', '8');
+            leaf.setAttribute('ry', '15');
+            leaf.setAttribute('fill', '#7fa650');
+            leaf.setAttribute('transform', 'rotate(-30 42 80)');
+            svg.appendChild(leaf);
+
+            // Use custom draw function for each unique flower
+            if (flowerData.type === 'custom' && flowerData.draw) {
+                flowerData.draw(svg);
+            }
+
+            return svg;
+        }
+
+        function createFlowerOptions() {
+            const flowerGrid = document.getElementById('flowerGrid');
+            
+            flowerTypes.forEach((flowerData, index) => {
+                const flowerOption = document.createElement('div');
+                flowerOption.className = 'flower-option';
+                flowerOption.dataset.flowerId = index;
+                
+                const svg = createFlowerSVG(flowerData);
+                flowerOption.appendChild(svg);
+                
+                const name = document.createElement('div');
+                name.className = 'flower-name';
+                name.textContent = flowerData.name;
+                flowerOption.appendChild(name);
+                
+                flowerOption.addEventListener('click', () => selectFlower(index, flowerData));
+                
+                flowerGrid.appendChild(flowerOption);
+            });
+        }
+
+        function selectFlower(id, flowerData) {
+            // Remove previous selection
+            document.querySelectorAll('.flower-option').forEach(opt => {
+                opt.classList.remove('selected');
+            });
+            
+            // Add selection to clicked flower
+            const selectedOption = document.querySelector(`[data-flower-id="${id}"]`);
+            selectedOption.classList.add('selected');
+            
+            // Update display
+            const display = document.getElementById('selectedFlowerDisplay');
+            display.innerHTML = '';
+            
+            const largeSvg = createFlowerSVG(flowerData, 100);
+            display.appendChild(largeSvg);
+            
+            const name = document.createElement('div');
+            name.className = 'recipient-flower-name';
+            name.textContent = flowerData.name;
+            display.appendChild(name);
+            
+            selectedFlower = { id, data: flowerData };
+        }
+
+        function generateShareableLink() {
+            if (!selectedFlower) {
+                alert('Please select a flower first!');
+                return;
+            }
+            
+            const letterText1 = document.getElementById('letterText1').value;
+            const letterText2 = document.getElementById('letterText2').value;
+            
+            if (!letterText1 || !letterText2) {
+                alert('Please write your letter message!');
+                return;
+            }
+            
+            let musicData = {};
+            
+            if (currentMusicSource === 'youtube') {
+                const url = document.getElementById('youtubeUrl').value;
+                if (!url) {
+                    alert('Please add a YouTube URL for the song!');
+                    return;
+                }
+                
+                const videoId = extractVideoId(url);
+                if (!videoId) {
+                    alert('Please enter a valid YouTube URL');
+                    return;
+                }
+                
+                const startMin = parseInt(document.getElementById('startMinutes').value) || 0;
+                const startSec = parseInt(document.getElementById('startSeconds').value) || 0;
+                const endMin = parseInt(document.getElementById('endMinutes').value) || 0;
+                const endSec = parseInt(document.getElementById('endSeconds').value) || 0;
+                
+                musicData = {
+                    type: 'youtube',
+                    videoId: videoId,
+                    startTime: (startMin * 60) + startSec,
+                    endTime: (endMin * 60) + endSec
+                };
+            } else {
+                alert('Note: MP3 files cannot be shared via link. Please use YouTube for shareable messages.');
+                return;
+            }
+            
+            // Create shareable data
+            const shareData = {
+                flowerId: selectedFlower.id,
+                music: musicData,
+                letterText1: letterText1,
+                letterText2: letterText2
+            };
+            
+            // Encode data in URL
+            const encodedData = btoa(encodeURIComponent(JSON.stringify(shareData)));
+            const shareUrl = `${window.location.origin}${window.location.pathname}?msg=${encodedData}`;
+            
+            // Show share section
+            document.getElementById('shareSection').style.display = 'block';
+            document.getElementById('shareLinkInput').value = shareUrl;
+            
+            // Scroll to share section
+            document.getElementById('shareSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function copyShareLink() {
+            const input = document.getElementById('shareLinkInput');
+            input.select();
+            document.execCommand('copy');
+            
+            const button = event.target;
+            const originalText = button.textContent;
+            button.textContent = '✓ Copied!';
+            setTimeout(() => {
+                button.textContent = originalText;
+            }, 2000);
+        }
+
+        function loadRecipientView() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const msgData = urlParams.get('msg');
+            
+            if (msgData) {
+                try {
+                    const shareData = JSON.parse(decodeURIComponent(atob(msgData)));
+                    
+                    // Hide flower selection and editable areas
+                    document.getElementById('flowerSelection').style.display = 'none';
+                    
+                    // Replace textareas with display paragraphs
+                    const letterContent = document.getElementById('letterContent');
+                    letterContent.innerHTML = `
+                        <p class="recipient-letter-text">${shareData.letterText1}</p>
+                        <div class="music-player">
+                            <div class="music-header">♪ A Song Dedicated to You ♪</div>
+                            <div class="music-controls">
+                                <button class="play-button" onclick="playMusic()">Play Our Song</button>
+                                <div class="player-container" id="playerContainer">
+                                    <div id="player"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="recipient-letter-text">${shareData.letterText2}</p>
+                    `;
+                    
+                    // Show recipient flower display
+                    const recipientDisplay = document.getElementById('recipientFlowerDisplay');
+                    recipientDisplay.style.display = 'block';
+                    
+                    // Display the selected flower
+                    const flowerData = flowerTypes[shareData.flowerId];
+                    const flowerContainer = document.getElementById('recipientFlowerContainer');
+                    const svg = createFlowerSVG(flowerData, 150);
+                    flowerContainer.appendChild(svg);
+                    
+                    document.getElementById('recipientFlowerName').textContent = flowerData.name;
+                    
+                    // Load the music
+                    if (shareData.music.type === 'youtube') {
+                        document.getElementById('youtubeUrl').value = `https://www.youtube.com/watch?v=${shareData.music.videoId}`;
+                        document.getElementById('startMinutes').value = Math.floor(shareData.music.startTime / 60);
+                        document.getElementById('startSeconds').value = shareData.music.startTime % 60;
+                        document.getElementById('endMinutes').value = Math.floor(shareData.music.endTime / 60);
+                        document.getElementById('endSeconds').value = shareData.music.endTime % 60;
+                        
+                        // Auto-play the music
+                        setTimeout(() => {
+                            playMusic();
+                        }, 1000);
+                    }
+                    
+                } catch (e) {
+                    console.error('Error loading message:', e);
+                }
+            }
+        }
+
+        function createReply() {
+            // Clear URL parameters to go back to compose mode
+            window.location.href = window.location.origin + window.location.pathname;
+        }
+
+        // Initialize
+        window.addEventListener('DOMContentLoaded', () => {
+            loadRecipientView();
+            createFlowerOptions();
+        });
+    </script>
+</body>
+</html>
